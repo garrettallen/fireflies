@@ -1,11 +1,11 @@
 var fireFlies = function() {
 
   function randomTranslate(position, max) {
-    var rdm = Math.floor((-position) + (Math.random() * max));
-    return rdm;
+    return Math.floor((Math.random() * max) - position);
   }
 
   function keyframeFactory(class_name, x, y, width, height) {
+    // Todo: make the keyframe percent random
     return "\
       @keyframes " + class_name + " {\
         15% {\
@@ -38,9 +38,10 @@ var fireFlies = function() {
 
   function hatchFlies(config) {
     var config = (config || {});
-  
     var flyNodes = [];
     var flies = config.number_flies || 20;
+
+    // These need to be set to the containing element or html.body
     var h = config.height || 333;
     var w = config.width|| 500;
 
@@ -53,6 +54,8 @@ var fireFlies = function() {
       var speed = 20 + (Math.random() * 40) + "s";
       var x = Math.floor(Math.random() * w);
       var y = Math.floor(Math.random() * h);
+
+      // Todo: check for existing stylesheets first, might be none
       document.styleSheets[0].insertRule(ruleFactory(random_class, speed, size, color, random_keyframe, x, y), 0);
       document.styleSheets[0].insertRule(keyframeFactory(random_keyframe, x, y, w, h), 0);
     }
@@ -66,5 +69,3 @@ var fireFlies = function() {
   };
 
 }();
-
-fireFlies();
