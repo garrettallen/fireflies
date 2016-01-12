@@ -41,9 +41,12 @@ var fireFlies = function() {
     var flyNodes = [];
     var flies = config.number_flies || 20;
 
-    // These need to be set to the containing element or html.body
-    var h = config.height || 333;
-    var w = config.width|| 500;
+
+    var elem = config.elem || 'body';
+    var elem_dom = document.querySelectorAll(elem)[0];
+    var clientRect = elem_dom.getBoundingClientRect();
+    var h = clientRect.height;
+    var w = clientRect.width;    
 
     for (var fly = 0; fly < flies; fly++) {
       var random_class = "a" + fly;
@@ -60,7 +63,13 @@ var fireFlies = function() {
       document.styleSheets[0].insertRule(keyframeFactory(random_keyframe, x, y, w, h), 0);
     }
 
-    document.body.innerHTML += ("<div id='flies'>" + flyNodes.join('') + "</div>");
+    var posish = 'relative';
+    if (elem == 'body') {
+      posish = 'absolute';
+    }
+    elem_dom.innerHTML += ("<div id='flies' style='position: " + posish
+      + "; top: 0; left:0; overflow:hidden; width:" + w + "px; height: "
+      + h + "px;'>" + flyNodes.join('') + "</div>");
   }
 
   return function(config) {
