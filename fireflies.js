@@ -1,11 +1,16 @@
 var fireFlies = function() {
 
+  function checkCss() {
+    if (document.styleSheets.length === 0) {
+      document.head.innerHTML += "<style></style>";
+    }
+  }
+
   function randomTranslate(position, max) {
     return Math.floor((Math.random() * max) - position);
   }
 
   function keyframeFactory(class_name, x, y, width, height) {
-    // Todo: make the keyframe percent random
     return "\
       @keyframes " + class_name + " {\
         15% {\
@@ -39,40 +44,42 @@ var fireFlies = function() {
   function hatchFlies(config) {
     var config = (config || {});
     var flyNodes = [];
-    var flies = config.number_flies || 20;
-
-
-    var elem = config.elem || 'body';
-    var elem_dom = document.querySelectorAll(elem)[0];
-    var clientRect = elem_dom.getBoundingClientRect();
-    var h = clientRect.height;
-    var w = clientRect.width;    
-
+    var flies = config.number_flies || 40;
+    var color = config.color || '#ffb149';
+    var element = config.elem || 'body';
+    var element_dom;
+    if (document.querySelectorAll(element).length) {
+      element_dom = document.querySelectorAll(element)[0];
+    } else {
+      console.error("No elements were found that match the selector: '" + element + "'. Please check it and try again.");
+      return;
+    }
+    var clientRect = element_dom.getBoundingClientRect();
+    var height = clientRect.height;
+    var width = clientRect.width;
     for (var fly = 0; fly < flies; fly++) {
-      var random_class = "a" + fly;
-      var random_keyframe = "k" + fly;
-      flyNodes.push('<div class=' + random_class + '>&bull;</div>');
-      var size = 1 + Math.ceil(Math.random() * 4);
-      var color = '#ffb149';
+      var class_name = "a" + fly;
+      var animation_name = "k" + fly;
+      flyNodes.push('<div class=' + class_name + '>&bull;</div>');
+      var size = 1 + Math.ceil(Math.random() * 4);      
       var speed = 20 + (Math.random() * 40) + "s";
-      var x = Math.floor(Math.random() * w);
-      var y = Math.floor(Math.random() * h);
-
-      // Todo: check for existing stylesheets first, might be none
-      document.styleSheets[0].insertRule(ruleFactory(random_class, speed, size, color, random_keyframe, x, y), 0);
-      document.styleSheets[0].insertRule(keyframeFactory(random_keyframe, x, y, w, h), 0);
+      var x = Math.floor(Math.random() * width);
+      var y = Math.floor(Math.random() * height);
+      document.styleSheets[0].insertRule(ruleFactory(class_name, speed, size, color, animation_name, x, y), 0);
+      document.styleSheets[0].insertRule(keyframeFactory(animation_name, x, y, width, height), 0);
     }
 
-    var posish = 'relative';
-    if (elem == 'body') {
-      posish = 'absolute';
+    var position = 'relative';
+    if (element == 'body') {
+      position = 'absolute';
     }
-    elem_dom.innerHTML += ("<div id='flies' style='position: " + posish
-      + "; top: 0; left:0; overflow:hidden; width:" + w + "px; height: "
-      + h + "px;'>" + flyNodes.join('') + "</div>");
+    element_dom.innerHTML += ("<div id='flies' style='position: " + position
+      + "; top: 0; left:0; overflow:hidden; width:" + width + "px; height: "
+      + height + "px;'>" + flyNodes.join('') + "</div>");
   }
 
   return function(config) {
+    checkCss();
     hatchFlies(config);
     return;
   };
