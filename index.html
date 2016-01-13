@@ -1,20 +1,26 @@
 <html>
 <style>
     #flyme {
-      background: url('https://s-media-cache-ak0.pinimg.com/736x/ab/ca/dd/abcadd92de772a4222d36ae29f2ecb14.jpg') #444;
-      width: 500px;
-      height: 333px;
+      background: url('http://i.imgur.com/XQaySrY.jpg');
+      width: 800px;
+      height: 400px;
       background-size: cover;
     }
 </style>
 <title>Javascript Fireflies effect - wat r teh effects?!</title>
 <body>
-  <div>Demo | <a href="demo1.html">Demo full</a> | <a href="demo2.html">Demo snow globe</a> | <a href="https://github.com/garrettallen/fireflies">Sauce</a></div>
+  <div>
+    <p>
+      Demo | <a href="demo1.html">Demo full</a>
+      | <a href="demo2.html">Demo snow globe</a>
+      | <a href="https://github.com/garrettallen/fireflies">Sauce</a>
+    </p>
+  </div>
   <div id='flyme'></div>
   <script src='fireflies.js'></script>
   <script>
     (function() {
-      fireFlies({"number_flies": 30, "elem": "#flyme"});
+      fireFlies({"number_flies": 60, "elem": "#flyme"});
     })();
   </script>
 </body>
