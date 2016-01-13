@@ -15,14 +15,14 @@ var fireFlies = function() {
       @keyframes " + class_name + " {\
         15% {\
             transform: translate(" + randomTranslate(x, width) + "px, " + randomTranslate(y, height) + "px) scale(3, 3);\
-          opacity: 1;\
+          opacity: 0.8;\
         }\
         45% {\
             opacity: 0;\
         }\
         75% {\
             transform: translate(" + randomTranslate(x, width) + "px, " + randomTranslate(y, height) + "px) scale(4, 4);\
-          opacity: 1;\
+          opacity: 0.8;\
         }\
       }";
   }
