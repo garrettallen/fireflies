@@ -1,0 +1,24 @@
+<html>
+<style>
+    #flyme {
+      background: url('https://s-media-cache-ak0.pinimg.com/736x/ab/ca/dd/abcadd92de772a4222d36ae29f2ecb14.jpg') #444;
+      width: 500px;
+      height: 333px;
+      margin-left: 30px;
+      background-size: cover;
+    }
+
+    body {
+      background: #000;
+    }
+</style>
+<body>
+    <div id='flyme'></div>
+    <script src='../fireflies.js'></script>
+    <script>
+        (function() {
+            fireFlies({"number_flies": 30, "elem": "#flyme"});
+        })();
+    </script>
+</body>
+</html>
