@@ -11,18 +11,20 @@ var fireFlies = function() {
   }
 
   function keyframeFactory(class_name, x, y, width, height) {
+    var keyframe_percent = 2 + Math.floor(Math.random() * 80);
     return "\
       @keyframes " + class_name + " {\
-        15% {\
-            transform: translate(" + randomTranslate(x, width) + "px, " + randomTranslate(y, height) + "px) scale(3, 3);\
-          opacity: 0.8;\
+        " + (keyframe_percent - 10) + "% {\
+          opacity: 0;\
+          transform: scale(1, 1);\
         }\
-        45% {\
-            opacity: 0;\
+        " + keyframe_percent + "% {\
+          transform: translate(" + randomTranslate(x, width) + "px, " + randomTranslate(y, height) + "px) scale(3, 3);\
+          opacity: 0.9;\
         }\
-        75% {\
-            transform: translate(" + randomTranslate(x, width) + "px, " + randomTranslate(y, height) + "px) scale(4, 4);\
-          opacity: 0.8;\
+        " + (keyframe_percent + 10) + "% {\
+          opacity: 0;\
+          transform: scale(1, 1);\
         }\
       }";
   }
@@ -36,7 +38,7 @@ var fireFlies = function() {
         color: " + color + ";\
         text-shadow: 0 0 3px " + color + ";\
         font-size: " + size + "px;\
-        opacity: 0; \
+        opacity: 0.2; \
         animation: " + animation_name + " " + duration + " ease-in-out infinite;\
       }";
   }
@@ -62,10 +64,10 @@ var fireFlies = function() {
       var animation_name = "k" + fly;
       flyNodes.push('<div class=' + class_name + '>&bull;</div>');
       var size = 1 + Math.ceil(Math.random() * 4);      
-      var speed = 20 + (Math.random() * 40) + "s";
+      var duration = 100 + (Math.random() * 40) + "s";
       var x = Math.floor(Math.random() * width);
       var y = Math.floor(Math.random() * height);
-      document.styleSheets[0].insertRule(ruleFactory(class_name, speed, size, color, animation_name, x, y), 0);
+      document.styleSheets[0].insertRule(ruleFactory(class_name, duration, size, color, animation_name, x, y), 0);
       document.styleSheets[0].insertRule(keyframeFactory(animation_name, x, y, width, height), 0);
     }
 
