@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/garrettallen/fireflies/issues"
   },
-  "homepage": "https://github.com/garrettallen/fireflies#readme"
+  "homepage": "https://github.com/garrettallen/fireflies#readme",
+  "devDependencies": {
+    "casperjs": "^1.1.0-beta3"
+  }
 }
